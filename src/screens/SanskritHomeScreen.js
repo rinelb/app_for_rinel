@@ -21,6 +21,9 @@ const SanskritHomeScreen = ({ navigation }) => {
         <View style={{ marginBottom: 10 }}>
           <Button onPress={() => navigation.navigate('testLetters')} title="Letter Testing" /> 
         </View>
+        <View style={{ marginBottom: 10 }}>
+          <Button onPress={() => navigation.navigate('AudioTestScreen')} title="Audio Testing" /> 
+        </View>
         
       </View>
     </View>
