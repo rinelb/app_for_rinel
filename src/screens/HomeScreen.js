@@ -14,11 +14,8 @@ const HomeScreen = ({ navigation }) => {
 
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <Text>Rinel's App </Text><Text> </Text>
-     <Button onPress={() => navigation.navigate('Sanskrit1')} title="Go to Sanskrit1" /><Text> </Text>
-    <Button
-      onPress={() => navigation.navigate('Sanskrit')}
-      title="Go to Sanskrit"
-    /> 
+     <Button onPress={() => navigation.navigate('Sanskrit')} title="Sanksrit" /><Text> </Text>
+     <Button onPress={() => navigation.navigate('Books')}  title="Books"/> 
   </View>
   );
 };

@@ -1,0 +1,12 @@
+[
+    {"id":46,"letter":"y","phonic":"y","mouth":""},
+    {"id":47,"letter":"r","phonic":"r","mouth":""},
+    {"id":48,"letter":"l","phonic":"l","mouth":""},
+    {"id":49,"letter":"v","phonic":"v","mouth":""},
+    {"id":50,"letter":"z","phonic":"s","mouth":"Dental"},
+    {"id":51,"letter":"S","phonic":"ṣ","mouth":"Retro­flex"},
+    {"id":52,"letter":"s","phonic":"s'","mouth":"palatal"},
+    {"id":53,"letter":"h","phonic":"","mouth":""},
+    {"id":54,"letter":"kS","phonic":"","mouth":""},
+    {"id":55,"letter":"jJ","phonic":"","mouth":""}
+]

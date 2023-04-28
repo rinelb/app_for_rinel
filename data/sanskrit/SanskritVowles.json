@@ -1,0 +1,20 @@
+[
+    
+    {"id":1,"letter":"a","phonic":"a","mouth":"Velar"},
+    {"id":2,"letter":"A","phonic":"aa","mouth":"Velar"},
+    {"id":3,"letter":"i","phonic":"i","mouth":"palatal"},
+    {"id":4,"letter":"I","phonic":"ii","mouth":"palatal"},
+    {"id":5,"letter":"u","phonic":"u","mouth":"Labial"},
+    {"id":6,"letter":"U","phonic":"uu","mouth":"Labial"},
+    {"id":7,"letter":"R","phonic":"ṛ","mouth":"retro­flex"},
+    {"id":8,"letter":"RR","phonic":"ṛṛ","mouth":"retro­flex"},
+    {"id":9,"letter":"lR","phonic":"ḷr","mouth":"retro­flex"},
+    {"id":10,"letter":"lRR","phonic":"ḷḷrr","mouth":"retro­flex"},
+    {"id":11,"letter":"è","phonic":"-","mouth":""},
+    {"id":12,"letter":"e","phonic":"ae","mouth":"palatal"},
+    {"id":13,"letter":"ai","phonic":"ie","mouth":"palatal"},
+    {"id":14,"letter":"ò","phonic":"-","mouth":""},
+    {"id":15,"letter":"o","phonic":"oor","mouth":"Labial"},
+    {"id":16,"letter":"au","phonic":"oow","mouth":"Labial"}
+  
+    ]

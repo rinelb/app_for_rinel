@@ -13,10 +13,17 @@ const SanskritHomeScreen = ({ navigation }) => {
 
 
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Rinel's App </Text><Text> </Text>
-     <Button onPress={() => navigation.navigate('allLetters')} title="All letters" /><Text> </Text>
-     <Button  onPress={() => navigation.navigate('testLetters')}  title="Letter Testing"/> 
-  </View>
+    <Text>Sanskrit Options</Text>
+    <View style={{ marginTop: 20 }}>
+        <View style={{ marginBottom: 10 }}>
+          <Button onPress={() => navigation.navigate('allLetters')} title="All letters" /> 
+        </View>
+        <View style={{ marginBottom: 10 }}>
+          <Button onPress={() => navigation.navigate('testLetters')} title="Letter Testing" /> 
+        </View>
+        
+      </View>
+    </View>
   );
 };
 

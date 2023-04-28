@@ -9,6 +9,7 @@ import SanskritScreenTest from './src/screens/SanskritScreenTest'
 import SanskritHomeScreen from './src/screens/SanskritHomeScreen';
 import SanskritLetterTestingScreen from './src/screens/SanskritLetterTestingScreen';
 import SanskritViewLetterScreen from './src/screens/SanskritViewLettersScreen';
+import Draw from './src/screens/DrawSceen';
 
 
 
@@ -27,7 +28,7 @@ function HomeStack() {
      <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Group screenOptions={{ presentation: 'modal' }}>
           <Stack.Screen name="Homeother" component={HomeScreen} options={{ title: 'Rinel\'s Homw ' }}/>
-          <Stack.Screen name="Sanskrit" component={SanskritScreenTest} />
+          <Stack.Screen name="Sanskrit" component={SanskritHomeScreen} />
           {/* <Stack.Screen name="sanskritLetters" component={SanskritLetterScreen}  />
           <Stack.Screen name="SankritWriteScreen" component={SankritWriteScreen}  /> */}
         </Stack.Group>
@@ -41,6 +42,7 @@ function ProfileStack() {
       <Stack.Screen name="Sanskrit1" component={SanskritHomeScreen} />
       <Stack.Screen name="allLetters" component={SanskritViewLetterScreen} />
       <Stack.Screen name="testLetters" component={SanskritLetterTestingScreen} /> 
+      <Stack.Screen name="draw" component={Draw} /> 
     </Stack.Navigator>
   );
 }
