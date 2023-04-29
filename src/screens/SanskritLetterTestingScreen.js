@@ -1,5 +1,5 @@
-import React, {  useRef,useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet,ScrollView  ,  } from 'react-native';
+import React, {  useRef,useState,useEffect } from 'react';
+import { View, Text, TextInput, Button, StyleSheet,ScrollView  ,TouchableOpacity  } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import Sanscript from '@indic-transliteration/sanscript';
 import SankritVol from '../data/sanskrit/SanskritVowles.json'
@@ -19,20 +19,34 @@ const SanskritLetterTestingScreen= () => {
 
   const [isRandomVowle, setRandomVowle] = useState(false);
     const [isReverse, setReverse] = useState(false);
+    const [isRandom, setIsRandom] = useState(true);
     let [displayText, setDisplayText] = useState("");
     let [answerText, setAnswerText] = useState("");
-    let [randomNumberSankrit, setRandomNumberSankrit] = useState(0);
+    let [randomNumberSankrit, setRandomNumberSankrit] = useState(-1);
     let [randomNumberSankritVowle, setRandomNumberSankritVowle] = useState(0);
     let [LastRandomNumberSankrit, setLastRandomNumberSankrit] = useState(0);
     let [LastRandomNumberSankritVowles, setLastRandomNumberSankritVowles] = useState(0);
+
+
+    useEffect(() => {
+      setDisplayText( Sanscript.t("a", 'hk', 'devanagari'))
+  
+      return () => {
+      };
+    }, []);
 
 
     function NextLetter  (){
         //setting previous
         setLastRandomNumberSankrit(randomNumberSankrit)
         setLastRandomNumberSankritVowles(randomNumberSankritVowle)
-
-        let randomNumberSankritTemp = Math.floor(Math.random() * SanskritConst.length)
+        let randomNumberSankritTemp = 0
+        if (isRandom){
+           randomNumberSankritTemp = Math.floor(Math.random() * SanskritConst.length)
+        }else{
+           randomNumberSankritTemp = randomNumberSankrit +1
+           if (randomNumberSankritTemp > SanskritConst.length){randomNumberSankritTemp = 0}
+        }
         setRandomNumberSankrit(randomNumberSankritTemp)
         //console.log("current index = " ,randomNumberSankritTemp)
 
@@ -62,21 +76,31 @@ const SanskritLetterTestingScreen= () => {
         // let tempString = isRandomVowle ? Sanscript.t(tempConstVowle, 'hk', 'devanagari'): Sanscript.t(SanskritConst[LastRandomNumberSankrit].letter+'a', 'hk', 'devanagari') 
         //console.log("LastRandomNumberSankrit = " ,LastRandomNumberSankrit)
         let tempString =""
+        let randomNumberSankritTemp = 0
+        if (isRandom===false){
+             
+              randomNumberSankritTemp = randomNumberSankrit -1
+              if (randomNumberSankritTemp === -1){randomNumberSankritTemp = 0}
+              setRandomNumberSankrit(randomNumberSankritTemp)
+          }else{
+            randomNumberSankritTemp = LastRandomNumberSankrit
+          }
         if (isReverse) {
             
-            let tempConstVowle = SanskritConst[LastRandomNumberSankrit].letter+SankritVol[LastRandomNumberSankritVowles].letter
+            let tempConstVowle = SanskritConst[randomNumberSankritTemp].letter+SankritVol[LastRandomNumberSankritVowles].letter
             //console.log("tempConstVowle in ifthen = " ,SanskritConst[LastRandomNumberSankrit])
-            tempString = isRandomVowle ? tempConstVowle: SanskritConst[LastRandomNumberSankrit].letter+'a'
+            tempString = isRandomVowle ? tempConstVowle: SanskritConst[randomNumberSankritTemp].letter+'a'
         
           } else {
-            let tempConstVowle = SanskritConst[LastRandomNumberSankrit].letter+SankritVol[LastRandomNumberSankritVowles].letter
-            tempString = isRandomVowle ? Sanscript.t(tempConstVowle, 'hk', 'devanagari'): Sanscript.t(SanskritConst[LastRandomNumberSankrit].letter+'a', 'hk', 'devanagari') 
+            let tempConstVowle = SanskritConst[randomNumberSankritTemp].letter+SankritVol[LastRandomNumberSankritVowles].letter
+            tempString = isRandomVowle ? Sanscript.t(tempConstVowle, 'hk', 'devanagari'): Sanscript.t(SanskritConst[randomNumberSankritTemp].letter+'a', 'hk', 'devanagari') 
         
           }
         //console.log("tempString in last = " ,tempString)
         setDisplayText(tempString)
         setAnswerText("")
-        setRandomNumberSankrit(LastRandomNumberSankrit)
+        if (isRandom){setRandomNumberSankrit(LastRandomNumberSankrit)}
+         
         setRandomNumberSankritVowle(LastRandomNumberSankritVowles)
 
     }
@@ -107,10 +131,13 @@ const SanskritLetterTestingScreen= () => {
     <View  style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' ,marginTop: 10}}>
             <Text>Random Vowles<Checkbox style={styles.checkbox} value={isRandomVowle} onValueChange={setRandomVowle} />
             &nbsp;&nbsp;&nbsp; Reverse <Checkbox style={styles.checkbox}
-            value={isReverse} onValueChange={setReverse} /></Text>
+            value={isReverse} onValueChange={setReverse} />
+            &nbsp;&nbsp;&nbsp; Random <Checkbox style={styles.checkbox}
+            value={isRandom} onValueChange={setIsRandom} /></Text>
             <Text onPress={ShowResult}  style={styles.displayText}>{displayText}</Text>
             <Text style={styles.answerText}>{answerText}</Text>
             <Text><Button title="Next" onPress={NextLetter}/>&nbsp;&nbsp;&nbsp;&nbsp;<Button title="Last" onPress={LastLetter}/></Text>
+            
           
 
            
@@ -138,7 +165,7 @@ const SanskritLetterTestingScreen= () => {
   },
   checkbox: {
     marginRight: 10,
-    borderRadius: 10,
+    borderRadius: 5,
     borderWidth: 2,
     borderColor: '#ddd',
     backgroundColor: '#fff',
@@ -146,7 +173,7 @@ const SanskritLetterTestingScreen= () => {
     paddingTop: 15,
     paddingBottom: 5,
     paddingRight: 10,
-    marginTop: 10,
+    marginTop: 1,
   },
   label: {
     fontSize: 16,

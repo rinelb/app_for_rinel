@@ -32,6 +32,9 @@ function HomeStack() {
         <Stack.Group screenOptions={{ presentation: 'modal' }}>
           <Stack.Screen name="Homeother" component={HomeScreen} options={{ title: 'Rinel\'s Homw ' }}/>
           <Stack.Screen name="Sanskrit" component={SanskritHomeScreen} />
+          <Stack.Screen name="HanumanChalisaScreen" component={HanumanChalisaScreen} /> 
+          <Stack.Screen name="allLetters" component={SanskritViewLetterScreen} />
+      <Stack.Screen name="testLetters" component={SanskritLetterTestingScreen} /> 
           {/* <Stack.Screen name="sanskritLetters" component={SanskritLetterScreen}  />
           <Stack.Screen name="SankritWriteScreen" component={SankritWriteScreen}  /> */}
         </Stack.Group>
