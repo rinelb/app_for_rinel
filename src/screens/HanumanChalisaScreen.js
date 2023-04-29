@@ -17,6 +17,8 @@ const HanumanChalisaScreen = () => {
   const [lyric, setLyric] = useState('');
   const [lyricIndex, setLyricIndex] = useState(0);
   const [sound, setSound] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+const [isCompleted, setIsCompleted] = useState(false);
 
   const loadSound = (fileName) => {
     const newSound = new Sound(fileName, Sound.MAIN_BUNDLE, (error) => {
@@ -60,9 +62,13 @@ const HanumanChalisaScreen = () => {
 
   const playPause = () => {
     if (sound !== null) {
+      setIsPlaying(true)  
+      setIsCompleted(false)
       sound.play((success) => {
         if (success) {
           console.log('successfully finished playing');
+          setIsPlaying(false)
+          setIsCompleted(true)
         } else {
           console.log('playback failed due to audio decoding errors');
         }
@@ -120,7 +126,11 @@ const HanumanChalisaScreen = () => {
         /> */}
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.playBtn} onPress={playPause}>
+        <TouchableOpacity  style={[
+                styles.playBtn,
+                isPlaying && { backgroundColor: 'green' },
+                isCompleted && { backgroundColor: 'white' },
+            ]} onPress={playPause}>
             <Text style={styles.playBtnText}>Play</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.stopBtn} onPress={stop}>
