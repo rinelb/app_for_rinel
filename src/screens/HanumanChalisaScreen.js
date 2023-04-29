@@ -22,6 +22,8 @@ const HanumanChalisaScreen = () => {
     const [sound, setSound] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isCompleted, setIsCompleted] = useState(false);
+    const [repeat, setRepeat] = useState(false);
+
 
     //dropdownbox
     const [value, setValue] = useState(0);
@@ -35,6 +37,8 @@ const HanumanChalisaScreen = () => {
       if (error) {
         console.log('failed to load the sound', error);
         return;
+      }else{
+        newSound.setNumberOfLoops(5);
       }
       // if loaded successfully
       console.log(
@@ -77,8 +81,16 @@ const HanumanChalisaScreen = () => {
       sound.play((success) => {
         if (success) {
           console.log('successfully finished playing');
+          if (repeat) {
+            // Replay the song if repeat is enabled
+                console.log('repeating ');
+            sound.setCurrentTime(0);
+            // sound.play((success) => {
+            //     console.log('repeating inner');
+            // })
+          }else{
           setIsPlaying(false)
-          setIsCompleted(true)
+          setIsCompleted(true)}
         } else {
           console.log('playback failed due to audio decoding errors');
         }
@@ -89,10 +101,15 @@ const HanumanChalisaScreen = () => {
   const stop = () => {
     if (sound !== null) {
       sound.stop();
+      setIsPlaying(false)
+          setIsCompleted(true)
     }
   };
 
   const NextLine = () => {
+    if (isPlaying){
+        stop()
+    }  
     const tempIndex = lyricIndex +1
     const tempvalue = value + 1 
     setValue(value+1)
@@ -109,6 +126,9 @@ const HanumanChalisaScreen = () => {
   };
 
   const LastLine = () => {
+    if (isPlaying){
+        stop()
+    }  
     const tempIndex = lyricIndex ===0?0:lyricIndex -1
     const tempvalue = value ===0?0:value -1
     setValue(tempvalue)
@@ -139,7 +159,9 @@ const HanumanChalisaScreen = () => {
    
   };
 
-
+  const toggleRepeat = () => {
+    setRepeat(!repeat);
+  };
 
   return (
     <View style={{flex:1}}>
@@ -159,6 +181,9 @@ const HanumanChalisaScreen = () => {
                 searchPlaceholder="Search..."
                 value={value}
                 onChange={item => {
+                if (isPlaying){
+                    stop()
+                }    
                 setLyric(item.label);    
                 setValue(item.value);
                 setTheSound(item.value)
@@ -194,7 +219,9 @@ const HanumanChalisaScreen = () => {
         <TouchableOpacity style={styles.stopBtn} onPress={stop}>
             <Text style={styles.stopBtnText}>Stop</Text>
         </TouchableOpacity>
+       
       </View>
+      
     </View>
 
     </View>
@@ -249,9 +276,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonContainer: {
-    flexDirection: 'row',
+    flexDirection: 'row', marginTop: 16,
+    paddingTop:10,
   }, dropdown: {
     margin: 16,
+   
     height: 50,
     borderBottomColor: 'gray',
     borderBottomWidth: 0.5,
@@ -266,6 +295,16 @@ const styles = StyleSheet.create({
  
   inputSearchStyle: {
     height: 40,
+    fontSize: 16,
+  },
+  repeatBtn: {
+    padding: 20,
+    backgroundColor: '#00FF00',
+    borderRadius: 10,
+  },
+  repeatBtnText: {
+    color: '#fff',
+    fontWeight: 'bold',
     fontSize: 16,
   },
 });

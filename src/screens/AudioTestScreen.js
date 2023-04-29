@@ -13,6 +13,7 @@ Sound.setCategory('Playback');
 const AudioTestScreen = () => {
   const [songName, setSongName] = useState('');
   const [sound, setSound] = useState(null);
+  const [repeat, setRepeat] = useState(false);
 
   const loadSound = (fileName) => {
     const newSound = new Sound(fileName, Sound.MAIN_BUNDLE, (error) => {
@@ -48,6 +49,11 @@ const AudioTestScreen = () => {
       sound.play((success) => {
         if (success) {
           console.log('successfully finished playing');
+          if (repeat) {
+            // Replay the song if repeat is enabled
+            sound.setCurrentTime(0);
+            sound.play();
+          }
         } else {
           console.log('playback failed due to audio decoding errors');
         }
@@ -59,6 +65,10 @@ const AudioTestScreen = () => {
     if (sound !== null) {
       sound.stop();
     }
+  };
+
+  const toggleRepeat = () => {
+    setRepeat(!repeat);
   };
 
   return (
@@ -77,6 +87,11 @@ const AudioTestScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.stopBtn} onPress={stop}>
             <Text style={styles.stopBtnText}>Stop</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.repeatBtn} onPress={toggleRepeat}>
+          <Text style={styles.repeatBtnText}>
+            {repeat ? 'Repeat Off' : 'Repeat On'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -125,7 +140,17 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-  }
+  },
+  repeatBtn: {
+    padding: 20,
+    backgroundColor: '#00FF00',
+    borderRadius: 10,
+  },
+  repeatBtnText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });
 
 export default AudioTestScreen;
