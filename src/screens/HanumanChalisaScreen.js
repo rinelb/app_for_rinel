@@ -8,17 +8,27 @@ import {
   Button
 } from 'react-native';
 import song from '../data/sanskrit/hanuman/song.json'
+import { Dropdown } from 'react-native-element-dropdown';
 
 var Sound = require('react-native-sound');
 Sound.setCategory('Playback');
 
 const HanumanChalisaScreen = () => {
-  const [songName, setSongName] = useState('');
-  const [lyric, setLyric] = useState('');
-  const [lyricIndex, setLyricIndex] = useState(0);
-  const [sound, setSound] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-const [isCompleted, setIsCompleted] = useState(false);
+
+
+    const [songName, setSongName] = useState('');
+    const [lyric, setLyric] = useState('');
+    const [lyricIndex, setLyricIndex] = useState(0);
+    const [sound, setSound] = useState(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [isCompleted, setIsCompleted] = useState(false);
+
+    //dropdownbox
+    const [value, setValue] = useState(0);
+    const data = song.map((item) => ({
+        value: item.id,
+        label: item.lyric
+    }));
 
   const loadSound = (fileName) => {
     const newSound = new Sound(fileName, Sound.MAIN_BUNDLE, (error) => {
@@ -84,9 +94,11 @@ const [isCompleted, setIsCompleted] = useState(false);
 
   const NextLine = () => {
     const tempIndex = lyricIndex +1
-    setLyricIndex(tempIndex)
-    setLyric(song[tempIndex].lyric) 
-    loadSound(song[tempIndex].audio_word);
+    const tempvalue = value + 1 
+    setValue(value+1)
+    setLyricIndex(tempvalue)
+    setLyric(song[tempvalue].lyric) 
+    loadSound(song[tempvalue].audio_word);
     return () => {
         if (sound !== null) {
             sound.release();
@@ -98,10 +110,11 @@ const [isCompleted, setIsCompleted] = useState(false);
 
   const LastLine = () => {
     const tempIndex = lyricIndex ===0?0:lyricIndex -1
-    
-    setLyricIndex(tempIndex)
-    setLyric(song[tempIndex].lyric) 
-    loadSound(song[tempIndex].audio_word);
+    const tempvalue = value ===0?0:value -1
+    setValue(tempvalue)
+    setLyricIndex(tempvalue)
+    setLyric(song[tempvalue].lyric) 
+    loadSound(song[tempvalue].audio_word);
     return () => {
         if (sound !== null) {
             sound.release();
@@ -111,10 +124,55 @@ const [isCompleted, setIsCompleted] = useState(false);
    
   };
 
+  const setTheSound = (value) => {
+    
+    setValue(value)
+    setLyricIndex(value)
+    setLyric(song[value].lyric) 
+    loadSound(song[value].audio_word);
+    return () => {
+        if (sound !== null) {
+            sound.release();
+        }
+     
+    };
+   
+  };
+
+
+
   return (
+    <View style={{flex:1}}>
+    <Dropdown
+                style={styles.dropdown}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                
+                data={data}
+                search
+                maxHeight={300}
+                
+                labelField="label"
+                valueField="value"
+                placeholder="Select item"
+                searchPlaceholder="Search..."
+                value={value}
+                onChange={item => {
+                setLyric(item.label);    
+                setValue(item.value);
+                setTheSound(item.value)
+                }}
+                // renderLeftIcon={() => (
+                //   <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+                // )}
+            />
     <View style={styles.container}>
+        
+
       <View style={styles.inputContainer}>
         <View style={{  alignItems: 'center'}}>
+                
             <Text><Button title="Last" onPress={LastLine}/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Button title="Next" onPress={NextLine}/></Text>
             <Text  style={styles.lyric}>{lyric}</Text>
         </View>
@@ -137,6 +195,8 @@ const [isCompleted, setIsCompleted] = useState(false);
             <Text style={styles.stopBtnText}>Stop</Text>
         </TouchableOpacity>
       </View>
+    </View>
+
     </View>
   );
 };
@@ -190,7 +250,24 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-  }
+  }, dropdown: {
+    margin: 16,
+    height: 50,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 0.5,
+  },
+  
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+ 
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
 });
 
 export default HanumanChalisaScreen;
