@@ -11,6 +11,7 @@ import SanskritLetterTestingScreen from './src/screens/SanskritLetterTestingScre
 import SanskritViewLetterScreen from './src/screens/SanskritViewLettersScreen';
 import Draw from './src/screens/DrawSceen';
 import AudioTestScreen from './src/screens/AudioTestScreen';
+import HanumanChalisaScreen from './src/screens/HanumanChalisaScreen';
 
 
 
@@ -44,6 +45,7 @@ function ProfileStack() {
       <Stack.Screen name="allLetters" component={SanskritViewLetterScreen} />
       <Stack.Screen name="testLetters" component={SanskritLetterTestingScreen} /> 
       <Stack.Screen name="AudioTestScreen" component={AudioTestScreen} /> 
+      <Stack.Screen name="HanumanChalisaScreen" component={HanumanChalisaScreen} /> 
       <Stack.Screen name="draw" component={Draw} /> 
     </Stack.Navigator>
   );
