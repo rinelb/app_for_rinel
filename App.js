@@ -14,6 +14,7 @@ import AudioTestScreen from './src/screens/AudioTestScreen';
 import HanumanChalisaScreen from './src/screens/HanumanChalisaScreen';
 import DropdowntestScreen from './src/screens/DropdowntestScreen';
 import BasicBookScreen from './src/screens/BasicBooksScreen';
+import SankritLetterTestingAudio from './src/screens/SankritLetterTestingAudio';
 
 
 
@@ -35,7 +36,7 @@ function HomeStack() {
           <Stack.Screen name="Sanskrit" component={SanskritHomeScreen} />
           <Stack.Screen name="HanumanChalisaScreen" component={HanumanChalisaScreen} /> 
           <Stack.Screen name="allLetters" component={SanskritViewLetterScreen} />
-        <Stack.Screen name="testLetters" component={SanskritLetterTestingScreen} /> 
+        <Stack.Screen name="testLetters" component={SankritLetterTestingAudio} /> 
         <Stack.Screen name="Books" component={BasicBookScreen} />
           {/* <Stack.Screen name="sanskritLetters" component={SanskritLetterScreen}  />
           <Stack.Screen name="SankritWriteScreen" component={SankritWriteScreen}  /> */}
@@ -49,7 +50,7 @@ function ProfileStack() {
     <Stack.Navigator  screenOptions={{headerShown: false}}>
       <Stack.Screen name="Sanskrit1" component={SanskritHomeScreen} />
       <Stack.Screen name="allLetters" component={SanskritViewLetterScreen} />
-      <Stack.Screen name="testLetters" component={SanskritLetterTestingScreen} /> 
+      <Stack.Screen name="testLetters" component={SankritLetterTestingAudio} /> 
       <Stack.Screen name="AudioTestScreen" component={AudioTestScreen} /> 
       <Stack.Screen name="HanumanChalisaScreen" component={HanumanChalisaScreen} /> 
       <Stack.Screen name="DropdowntestScreen" component={DropdowntestScreen} /> 

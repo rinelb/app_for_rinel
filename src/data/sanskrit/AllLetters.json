@@ -1,0 +1,40 @@
+[
+      
+
+    
+    {"id":21,"letter":"k","phonic":"k","audio":"ka.mp3","mouth":"Velar"},
+    {"id":22,"letter":"kh","phonic":"kh","audio":"kha.mp3","mouth":"Velar"},
+    {"id":23,"letter":"g","phonic":"g","audio":"ga.mp3","mouth":"Velar"},
+    {"id":24,"letter":"gh","phonic":"gh","audio":"gha.mp3","mouth":"Velar"},
+    {"id":25,"letter":"G","phonic":"ṅ","audio":"na.mp3","mouth":"Velar-nasal"},
+    {"id":26,"letter":"c","phonic":"c","audio":"ca.mp3","mouth":"palatal"},
+    {"id":27,"letter":"ch","phonic":"ch","audio":"cha.mp3","mouth":"palatal"},
+    {"id":28,"letter":"j","phonic":"j","audio":"ja.mp3","mouth":"palatal"},
+    {"id":29,"letter":"jh","phonic":"jh","audio":"jha.mp3","mouth":"palatal"},
+    {"id":30,"letter":"J","phonic":"ñ","audio":"naa.mp3","mouth":"palatal-nasal"},
+    {"id":31,"letter":"T","phonic":"ṭ","audio":"ta.mp3","mouth":"Retro­flex "},
+    {"id":32,"letter":"Th","phonic":"ṭh","audio":"tha.mp3","mouth":"Retro­flex "},
+    {"id":33,"letter":"D","phonic":"ḍ","audio":"da.mp3","mouth":"Retro­flex "},
+    {"id":34,"letter":"Dh","phonic":"ḍh","audio":"dha.mp3","mouth":"Retro­flex "},
+    {"id":35,"letter":"N","phonic":"ṇ","audio":"naaa.mp3","mouth":"Retro­flex-nasal"},
+    {"id":36,"letter":"t","phonic":"t","audio":"tta.mp3","mouth":"Dental "},
+    {"id":37,"letter":"th","phonic":"th","audio":"ttha.mp3","mouth":"Dental "},
+    {"id":38,"letter":"d","phonic":"d","audio":"dda.mp3","mouth":"Dental "},
+    {"id":39,"letter":"dh","phonic":"dh","audio":"ddha.mp3","mouth":"Dental "},
+    {"id":40,"letter":"n","phonic":"n","audio":"naaaa.mp3","mouth":"Dental-nasal"},
+    {"id":41,"letter":"p","phonic":"p","audio":"pa.mp3","mouth":"Labial "},
+    {"id":42,"letter":"ph","phonic":"ph","audio":"pha.mp3","mouth":"Labial "},
+    {"id":43,"letter":"b","phonic":"b","audio":"ba.mp3","mouth":"Labial "},
+    {"id":44,"letter":"bh","phonic":"ph","audio":"bha.mp3","mouth":"Labial "},
+    {"id":45,"letter":"m","phonic":"m","audio":"ma.mp3","mouth":"Labial "},
+    {"id":46,"letter":"y","phonic":"y","audio":"ya.mp3"},
+    {"id":47,"letter":"r","phonic":"r","audio":"ra.mp3"},
+    {"id":48,"letter":"l","phonic":"l","audio":"la.mp3"},
+    {"id":49,"letter":"v","phonic":"v","audio":"va.mp3"},
+    {"id":50,"letter":"z","phonic":"ś","audio":"ma.mp3","mouth":"Dental"},
+    {"id":51,"letter":"S","phonic":"ṣ","audio":"ma.mp3","mouth":"Retro­flex"},
+    {"id":52,"letter":"s","phonic":"s'","audio":"ma.mp3","mouth":"palatal"},
+    {"id":53,"letter":"h","phonic":"","audio":"ma.mp3","mouth":""}
+    
+   
+]
