@@ -256,18 +256,16 @@ const SankritLetterTestingAudio= () => {
             value={isRandom} onValueChange={setIsRandom} /></Text>
             <Text onPress={ShowResult}  style={styles.displayText}>{displayText}</Text>
             <Text style={styles.answerText}>{answerText}</Text>
-            <Text><Button title="Next" onPress={NextLetter}/>
-            &nbsp;&nbsp;&nbsp;&nbsp;<Button title="Last" onPress={LastLetter}/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
+            <Text>
+            <Button title="Last" onPress={LastLetter}/>&nbsp;&nbsp;&nbsp;&nbsp;
+            
             {isRandomVowle ? (
-                    <></>
-                ) : (
-                    <Button  style={[
-                        styles.playBtn,
-                        isPlaying && { backgroundColor: 'green' },
-                        isCompleted && { backgroundColor: 'white' },
-                    ]} onPress={playPause} title="play" />
-      )}</Text> 
+                            <></>
+                        ) : (
+                            <Button  style={{backgroundColor:'green'}} onPress={playPause} title="play" />
+            )}
+            &nbsp;&nbsp;&nbsp;&nbsp;<Button title="Next" onPress={NextLetter}/>
+      </Text> 
       
       </View>  
         <DrawSceen></DrawSceen>
@@ -312,7 +310,7 @@ const SankritLetterTestingAudio= () => {
        
   },
   playBtnText: {
-    color: '#000',
+    color: 'green',
     fontWeight: 'bold',
     fontSize: 16,
   },

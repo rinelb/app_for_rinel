@@ -9,15 +9,21 @@ import {
 } from 'react-native';
 import song from '../data/sanskrit/hanuman/song.json'
 import { Dropdown } from 'react-native-element-dropdown';
+import Checkbox from 'expo-checkbox';
 
 var Sound = require('react-native-sound');
 Sound.setCategory('Playback');
 
+
+
+
 const HanumanChalisaScreen = () => {
 
-
+    const [devangari, setDevangari] = useState(false);
+    const [showMeaning ,setShowMeaning] = useState(true);
     const [songName, setSongName] = useState('');
     const [lyric, setLyric] = useState('');
+    const [meaning, setMeaning] = useState('');
     const [lyricIndex, setLyricIndex] = useState(0);
     const [sound, setSound] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -32,13 +38,18 @@ const HanumanChalisaScreen = () => {
         label: item.lyric
     }));
 
+    const dataDevanagari = song.map((item) => ({
+      value: item.id,
+      label: item.devinagari
+  }));
+
   const loadSound = (fileName) => {
     const newSound = new Sound(fileName, Sound.MAIN_BUNDLE, (error) => {
       if (error) {
         console.log('failed to load the sound', error);
         return;
       }else{
-        newSound.setNumberOfLoops(5);
+        // newSound.setNumberOfLoops(5);
       }
       // if loaded successfully
       console.log(
@@ -64,7 +75,12 @@ const HanumanChalisaScreen = () => {
   }, [songName]);
 
   useEffect(() => {
-    setLyric(song[0].lyric) 
+    if (devangari){
+      setLyric(song[0].devinagari)
+    }else {
+      setLyric(song[0].lyric)
+    }
+    setMeaning(song[0].meaning)
     loadSound(song[0].audio_word);
     return () => {
         if (sound !== null) {
@@ -114,7 +130,14 @@ const HanumanChalisaScreen = () => {
     const tempvalue = value + 1 
     setValue(value+1)
     setLyricIndex(tempvalue)
-    setLyric(song[tempvalue].lyric) 
+    
+    if (devangari){
+      setLyric(song[tempvalue].devinagari)
+    }else {
+      setLyric(song[tempvalue].lyric)
+    } 
+    setMeaning(song[tempvalue].meaning)
+    // setLyric(song[tempvalue].lyric) 
     loadSound(song[tempvalue].audio_word);
     return () => {
         if (sound !== null) {
@@ -133,7 +156,13 @@ const HanumanChalisaScreen = () => {
     const tempvalue = value ===0?0:value -1
     setValue(tempvalue)
     setLyricIndex(tempvalue)
-    setLyric(song[tempvalue].lyric) 
+    if (devangari){
+      setLyric(song[tempvalue].devinagari)
+    }else {
+      setLyric(song[tempvalue].lyric)
+    } 
+    setMeaning(song[tempvalue].meaning)
+    // setLyric(song[tempvalue].lyric) 
     loadSound(song[tempvalue].audio_word);
     return () => {
         if (sound !== null) {
@@ -148,7 +177,13 @@ const HanumanChalisaScreen = () => {
     
     setValue(value)
     setLyricIndex(value)
-    setLyric(song[value].lyric) 
+    if (devangari){
+      setLyric(song[value].devinagari)
+    }else {
+      setLyric(song[value].lyric)
+    } 
+    setMeaning(song[value].meaning)
+    // setLyric(song[value].lyric) 
     loadSound(song[value].audio_word);
     return () => {
         if (sound !== null) {
@@ -159,19 +194,33 @@ const HanumanChalisaScreen = () => {
    
   };
 
-  const toggleRepeat = () => {
-    setRepeat(!repeat);
+  const toggleDevanari = () => {
+    setDevangari(!devangari);
+    if (devangari){
+      setLyric(song[value].lyric)
+    }else {
+      
+      setLyric(song[value].devinagari)
+    } 
+    setMeaning(song[value].meaning)
+
   };
 
   return (
     <View style={{flex:1}}>
+    <View style={{ alignItems: 'center'}}>
+    <Text>
+      <Text>&nbsp;</Text>
+    </Text>
+      <Text style={{fontSize:20}}>Devanagari <Checkbox style={styles.checkbox}  value={devangari} onValueChange={toggleDevanari} /> &nbsp;&nbsp;&nbsp; Meaning <Checkbox style={styles.checkbox}  value={showMeaning} onValueChange={setShowMeaning} /></Text>
+    </View>
     <Dropdown
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
                 
-                data={data}
+                data={devangari ?   dataDevanagari:data}
                 search
                 maxHeight={300}
                 
@@ -194,12 +243,28 @@ const HanumanChalisaScreen = () => {
             />
     <View style={styles.container}>
         
-
+      
       <View style={styles.inputContainer}>
         <View style={{  alignItems: 'center'}}>
-                
-            <Text><Button title="Last" onPress={LastLine}/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Button title="Next" onPress={NextLine}/></Text>
+            
+             {/* <Text><Button  title="Last" onPress={LastLine}/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Button style={StyleSheet.next_last_button} title="Next" onPress={NextLine}/> </Text>  */}
+             <View style={styles.buttonContainer}>
+        <TouchableOpacity  style={[
+                styles.lastBtn,
+              
+            ]} onPress={LastLine}>
+            <Text style={styles.playBtnText}>&nbsp;&nbsp;&nbsp;&nbsp;Last</Text>
+        </TouchableOpacity>
+        <View style={{ width: 20 }} ><Text>&nbsp;</Text></View> 
+        <TouchableOpacity style={styles.nextBtn} onPress={NextLine}>
+            <Text style={styles.stopBtnText}>&nbsp;&nbsp;&nbsp;Next</Text>
+        </TouchableOpacity>
+       
+      </View>
+      <Text>&nbsp;</Text><Text>&nbsp;</Text>
             <Text  style={styles.lyric}>{lyric}</Text>
+            <Text>&nbsp;</Text>
+            {showMeaning && <Text style={{marginLeft:30,marginRight:30}}>{meaning}</Text>}
         </View>
         {/* <TextInput
           style={styles.input}
@@ -209,6 +274,9 @@ const HanumanChalisaScreen = () => {
         /> */}
       </View>
       <View style={styles.buttonContainer}>
+      <TouchableOpacity style={styles.stopBtn} onPress={stop}>
+            <Text style={styles.stopBtnText}>Stop</Text>
+        </TouchableOpacity>
         <TouchableOpacity  style={[
                 styles.playBtn,
                 isPlaying && { backgroundColor: 'green' },
@@ -216,9 +284,7 @@ const HanumanChalisaScreen = () => {
             ]} onPress={playPause}>
             <Text style={styles.playBtnText}>Play</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.stopBtn} onPress={stop}>
-            <Text style={styles.stopBtnText}>Stop</Text>
-        </TouchableOpacity>
+        
        
       </View>
       
@@ -250,7 +316,14 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
     borderRadius: 10,
+    
+  },
+  lastBtn: {
+    padding: 20,
+    backgroundColor: 'yellow',
+    borderRadius: 10,
     marginRight: 10,
+    width:100,
   },
   lyric: {
     padding: 20,
@@ -269,6 +342,14 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'red',
     borderRadius: 10,
+    marginRight: 30,
+    
+  },
+  nextBtn: {
+    padding: 20,
+    backgroundColor: 'green',
+    borderRadius: 10,
+    width:100,
   },
   stopBtnText: {
     color: '#fff',
@@ -307,6 +388,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  checkbox: {
+    marginRight: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
+    paddingLeft: 10,
+    paddingTop: 15,
+    paddingBottom: 5,
+    paddingRight: 10,
+    marginTop: 1,
+  },
+  next_last_button:
+  { width: 300, height: 100 }
 });
 
 export default HanumanChalisaScreen;
