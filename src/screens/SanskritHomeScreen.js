@@ -26,6 +26,7 @@ const SanskritHomeScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.stopBtn} onPress={() => navigation.navigate('HanumanChalisaScreen')} >
             <Text style={styles.stopBtnText}>Hanuman Chalisa</Text>
         </TouchableOpacity>
+        
    
         
       </View>

@@ -15,6 +15,8 @@ import HanumanChalisaScreen from './src/screens/HanumanChalisaScreen';
 import DropdowntestScreen from './src/screens/DropdowntestScreen';
 import BasicBookScreen from './src/screens/BasicBooksScreen';
 import SankritLetterTestingAudio from './src/screens/SankritLetterTestingAudio';
+import PopUpTestScreen from './src/screens/PopUpTestScreen';
+
 
 
 
@@ -23,6 +25,7 @@ import SankritLetterTestingAudio from './src/screens/SankritLetterTestingAudio';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -38,6 +41,8 @@ function HomeStack() {
           <Stack.Screen name="allLetters" component={SanskritViewLetterScreen} />
         <Stack.Screen name="testLetters" component={SankritLetterTestingAudio} /> 
         <Stack.Screen name="Books" component={BasicBookScreen} />
+        <Stack.Screen name="Popup" component={PopUpTestScreen} />
+   
           {/* <Stack.Screen name="sanskritLetters" component={SanskritLetterScreen}  />
           <Stack.Screen name="SankritWriteScreen" component={SankritWriteScreen}  /> */}
         </Stack.Group>
@@ -56,6 +61,7 @@ function ProfileStack() {
       <Stack.Screen name="DropdowntestScreen" component={DropdowntestScreen} /> 
       <Stack.Screen name="Books" component={BasicBookScreen} />
       <Stack.Screen name="draw" component={Draw} /> 
+      <Stack.Screen name="Popup" component={PopUpTestScreen} />
     </Stack.Navigator>
   );
 }

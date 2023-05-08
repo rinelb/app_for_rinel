@@ -5,11 +5,17 @@ import {
   TouchableOpacity,
   TextInput,
   Text,
-  Button
+  Button,
+  SafeAreaView,
+  Alert,
+  Modal,
+  Pressable,
+  Image
 } from 'react-native';
 import song from '../data/sanskrit/hanuman/song.json'
 import { Dropdown } from 'react-native-element-dropdown';
 import Checkbox from 'expo-checkbox';
+ 
 
 var Sound = require('react-native-sound');
 Sound.setCategory('Playback');
@@ -29,6 +35,8 @@ const HanumanChalisaScreen = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isCompleted, setIsCompleted] = useState(false);
     const [repeat, setRepeat] = useState(false);
+    const [isViewClicked, setIsViewClicked] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
 
 
     //dropdownbox
@@ -207,64 +215,123 @@ const HanumanChalisaScreen = () => {
   };
 
   return (
+
     <View style={{flex:1}}>
-    <View style={{ alignItems: 'center'}}>
+      
+      
+    {/* <View style={{ alignItems: 'center'}}>
     <Text>
       <Text>&nbsp;</Text>
     </Text>
       <Text style={{fontSize:20}}>Devanagari <Checkbox style={styles.checkbox}  value={devangari} onValueChange={toggleDevanari} /> &nbsp;&nbsp;&nbsp; Meaning <Checkbox style={styles.checkbox}  value={showMeaning} onValueChange={setShowMeaning} /></Text>
-    </View>
-    <Dropdown
-                style={styles.dropdown}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
+    </View> */}
+    <View style={{flexDirection:'row' ,}}>
+    
+
+    <View style={{ flexDirection: 'row',   flex: 1}}>
+          <View style={{  marginRight: 10,flex: 1 }}>
+                        <Dropdown
+                                                      style={[styles.dropdown ,{alignItems:'flex-start'}]}
+                                                      placeholderStyle={styles.placeholderStyle}
+                                                      selectedTextStyle={styles.selectedTextStyle}
+                                                      inputSearchStyle={styles.inputSearchStyle}
+                                                      
+                                                      data={devangari ?   dataDevanagari:data}
+                                                      search
+                                                      itemTextStyle={{fontSize: 11}}
+                                                      selectedTextStyle={{ fontSize: 11,fontWeight:'bold' }}
+                                                      
+                                                      labelField="label"
+                                                      valueField="value"
+                                                      placeholder="Select item"
+                                                      searchPlaceholder="Search..."
+                                                      value={value}
+                                                      onChange={item => {
+                                                      if (isPlaying){
+                                                          stop()
+                                                      }    
+                                                      setLyric(item.label);    
+                                                      setValue(item.value);
+                                                      setTheSound(item.value)
+                                                      }}
+                                                      // renderLeftIcon={() => (
+                                                      //   <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+                                                      // )}
+                          />
+                          
+                  </View>
                 
-                data={devangari ?   dataDevanagari:data}
-                search
-                maxHeight={300}
-                
-                labelField="label"
-                valueField="value"
-                placeholder="Select item"
-                searchPlaceholder="Search..."
-                value={value}
-                onChange={item => {
-                if (isPlaying){
-                    stop()
-                }    
-                setLyric(item.label);    
-                setValue(item.value);
-                setTheSound(item.value)
-                }}
-                // renderLeftIcon={() => (
-                //   <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-                // )}
-            />
+                  <Pressable
+                    style={[styles.buttonPressable, styles.buttonOpenPressable , {alignItems:'center'}]}
+                    onPress={() => setModalVisible(true)}>
+                    <Image style={{width: 25, height: 25 }} source={require('../image/icon/setting.png')}/>
+                  </Pressable>
+                       
+                  
+                            
+                          
+                                
+                              
+                 
+                   
+          </View>
+
+                  
+             
+             
+      </View>
+      <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                              Alert.alert('Modal has been closed.');
+                              setModalVisible(!modalVisible);
+                            }}>
+
+                            <View style={styles.centeredView}>
+                              
+                                    
+                                        <View style={styles.modalView} >
+                                            <View style={{alignItems:'center', marginTop:0, marginBottom:0}}>
+                                            <Image style={styles.settingIcon} source={require('../image/icon/settings.svg')}/>
+                                            </View>
+                                            
+                                            <View style={{alignItems:'flex-end'}}>
+                                                
+                                                <Text style={{fontSize:20}}>Devanagari  <Checkbox style={styles.checkbox}  value={devangari} onValueChange={toggleDevanari} /></Text>
+                                                <Text style={{fontSize:20,marginTop:15,}}>Meaning  <Checkbox style={styles.checkbox}  value={showMeaning} onValueChange={setShowMeaning} /></Text>
+                                                
+                                            </View>
+                                            <View style={{alignItems:'center', marginTop:10}}></View>
+
+                                                <Pressable
+                                                style={[styles.buttonPressableClose, styles.buttonClosePressable, {marginTop:15}] }
+                                                onPressOut={() => setModalVisible(!modalVisible)}
+                                                >
+                                                
+                                                
+                                                <Text style={styles.textStyle}>Close</Text>
+                                                </Pressable>
+                                            
+                                        </View>
+                                
+                              
+                          
+                            </View>
+                          </Modal>
+    
     <View style={styles.container}>
         
       
       <View style={styles.inputContainer}>
         <View style={{  alignItems: 'center'}}>
             
-             {/* <Text><Button  title="Last" onPress={LastLine}/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Button style={StyleSheet.next_last_button} title="Next" onPress={NextLine}/> </Text>  */}
-             <View style={styles.buttonContainer}>
-        <TouchableOpacity  style={[
-                styles.lastBtn,
-              
-            ]} onPress={LastLine}>
-            <Text style={styles.playBtnText}>&nbsp;&nbsp;&nbsp;&nbsp;Last</Text>
-        </TouchableOpacity>
-        <View style={{ width: 20 }} ><Text>&nbsp;</Text></View> 
-        <TouchableOpacity style={styles.nextBtn} onPress={NextLine}>
-            <Text style={styles.stopBtnText}>&nbsp;&nbsp;&nbsp;Next</Text>
-        </TouchableOpacity>
-       
-      </View>
-      <Text>&nbsp;</Text><Text>&nbsp;</Text>
+           
+      
             <Text  style={styles.lyric}>{lyric}</Text>
             <Text>&nbsp;</Text>
-            {showMeaning && <Text style={{marginLeft:30,marginRight:30}}>{meaning}</Text>}
+            {showMeaning && <Text style={{marginLeft:30,marginRight:30,textAlign:'center'}}>{meaning}</Text>}
         </View>
         {/* <TextInput
           style={styles.input}
@@ -273,7 +340,16 @@ const HanumanChalisaScreen = () => {
           onChangeText={(text) => setSongName(text)}
         /> */}
       </View>
-      <View style={styles.buttonContainer}>
+    
+      
+    </View>
+
+    <View style={[styles.buttonContainer, {marginBottom:60}]}>
+
+      <TouchableOpacity  style={[styles.lastBtn, ]} onPress={LastLine}>
+            <Text style={styles.playBtnText}>Prev</Text>
+        </TouchableOpacity>
+
       <TouchableOpacity style={styles.stopBtn} onPress={stop}>
             <Text style={styles.stopBtnText}>Stop</Text>
         </TouchableOpacity>
@@ -284,11 +360,17 @@ const HanumanChalisaScreen = () => {
             ]} onPress={playPause}>
             <Text style={styles.playBtnText}>Play</Text>
         </TouchableOpacity>
+
+
         
-       
-      </View>
+        
+        <TouchableOpacity style={styles.nextBtn} onPress={NextLine}>
+            <Text style={styles.stopBtnText}>Next</Text>
+        </TouchableOpacity>
+        
+        
       
-    </View>
+      </View>
 
     </View>
   );
@@ -298,7 +380,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+     justifyContent: 'center',
   },
   inputContainer: {
     marginBottom: 20,
@@ -312,24 +394,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     width: '80%',
   },
-  playBtn: {
-    padding: 20,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    
-  },
-  lastBtn: {
-    padding: 20,
-    backgroundColor: 'yellow',
-    borderRadius: 10,
-    marginRight: 10,
-    width:100,
-  },
+ 
+
   lyric: {
     padding: 20,
     backgroundColor: '#fff',
     borderRadius: 10,
-    fontSize:18,
+    fontSize:19,
+    textAlign:'center',
     marginTop: 15,
     marginBottom: 10,
   },
@@ -339,17 +411,48 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   stopBtn: {
-    padding: 20,
+    padding: 0,
     backgroundColor: 'red',
+    
+    marginRight: 10,
+    alignItems:'center',
+    justifyContent:'center',
     borderRadius: 10,
-    marginRight: 30,
+    width:76,
+    height:50,
     
   },
   nextBtn: {
-    padding: 20,
+    padding: 0,
     backgroundColor: 'green',
+    alignItems:'center',
+    justifyContent:'center',
     borderRadius: 10,
-    width:100,
+    width:76,
+    height:50,
+  },
+  playBtn: {
+    padding: 0,
+    backgroundColor: '#fff',
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius: 10,
+    width:76,
+    height:50,
+    marginRight: 10,
+    
+  },
+  lastBtn: {
+    padding: 0,
+    backgroundColor: 'yellow',
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius: 10,
+    width:76,
+    height:50,
+    marginRight: 10,
+    marginLeft: 10,
+   
   },
   stopBtnText: {
     color: '#fff',
@@ -359,11 +462,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row', marginTop: 16,
     paddingTop:10,
-  }, dropdown: {
-    margin: 16,
-   
-    height: 50,
-    borderBottomColor: 'gray',
+  }, 
+  dropdown: {
+    margin: 0,
+    width:250,
+    height: 80,
+
+    borderBottomColor: 'green',
     borderBottomWidth: 0.5,
   },
   
@@ -401,7 +506,69 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
   next_last_button:
-  { width: 300, height: 100 }
+  { width: 300, height: 100 },
+
+
+  centeredView: {
+    
+    justifyContent: 'center',
+    alignItems: 'center',
+     marginTop: '70%',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+
+  buttonPressableClose: {
+    borderRadius: 20,
+   
+    height:60,
+    width:160,
+    elevation: 2,
+    justifyContent:'center',
+    
+  },
+  buttonPressable: {
+    borderRadius: 20,
+    margin:10,
+    padding: 0,
+    height:30,
+    width:30,
+    elevation: 2,
+    justifyContent:'center',
+    
+  },
+  buttonOpenPressable: {
+    backgroundColor: '#D3D3D3',
+  },
+  buttonClosePressable: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  settingIcon:{
+    height: 10, 
+    width: 10
+
+  }
 });
 
 export default HanumanChalisaScreen;
