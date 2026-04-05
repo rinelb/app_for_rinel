@@ -231,15 +231,15 @@ const HanumanChalisaScreen = () => {
     <View style={{ flexDirection: 'row',   flex: 1}}>
           <View style={{  marginRight: 10,flex: 1 }}>
                         <Dropdown
-                                                      style={[styles.dropdown ,{alignItems:'flex-start'}]}
+                                                      style={[styles.dropdown ,{alignItems:'flex-start',color: 'black'}]}
                                                       placeholderStyle={styles.placeholderStyle}
                                                       selectedTextStyle={styles.selectedTextStyle}
                                                       inputSearchStyle={styles.inputSearchStyle}
                                                       
                                                       data={devangari ?   dataDevanagari:data}
                                                       search
-                                                      itemTextStyle={{fontSize: 11}}
-                                                      selectedTextStyle={{ fontSize: 11,fontWeight:'bold' }}
+                                                      itemTextStyle={{fontSize: 11,color: 'black'}}
+                                                      selectedTextStyle={{ fontSize: 11,fontWeight:'bold',color: 'black' }}
                                                       
                                                       labelField="label"
                                                       valueField="value"
@@ -299,8 +299,8 @@ const HanumanChalisaScreen = () => {
                                             
                                             <View style={{alignItems:'flex-end'}}>
                                                 
-                                                <Text style={{fontSize:20}}>Devanagari  <Checkbox style={styles.checkbox}  value={devangari} onValueChange={toggleDevanari} /></Text>
-                                                <Text style={{fontSize:20,marginTop:15,}}>Meaning  <Checkbox style={styles.checkbox}  value={showMeaning} onValueChange={setShowMeaning} /></Text>
+                                                <Text style={{fontSize:20, color: 'black'}}>Devanagari  <Checkbox style={styles.checkbox}  value={devangari} onValueChange={toggleDevanari} /></Text>
+                                                <Text style={{fontSize:20,marginTop:15, color: 'black'}}>Meaning  <Checkbox style={styles.checkbox}  value={showMeaning} onValueChange={setShowMeaning} /></Text>
                                                 
                                             </View>
                                             <View style={{alignItems:'center', marginTop:10}}></View>
@@ -331,7 +331,7 @@ const HanumanChalisaScreen = () => {
       
             <Text  style={styles.lyric}>{lyric}</Text>
             <Text>&nbsp;</Text>
-            {showMeaning && <Text style={{marginLeft:30,marginRight:30,textAlign:'center'}}>{meaning}</Text>}
+            {showMeaning && <Text style={{marginLeft:30,marginRight:30,textAlign:'center', color: 'black'}}>{meaning}</Text>}
         </View>
         {/* <TextInput
           style={styles.input}
@@ -384,13 +384,14 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 20,
+     color: 'black'
   },
   input: {
     borderWidth: 1,
     borderColor: '#fff',
     borderRadius: 10,
     padding: 10,
-    color: '#fff',
+    color: 'black',
     fontSize: 16,
     width: '80%',
   },
@@ -404,6 +405,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     marginTop: 15,
     marginBottom: 10,
+     color: 'black'
   },
   playBtnText: {
     color: '#000',
@@ -467,21 +469,23 @@ const styles = StyleSheet.create({
     margin: 0,
     width:250,
     height: 80,
-
     borderBottomColor: 'green',
     borderBottomWidth: 0.5,
   },
   
   placeholderStyle: {
     fontSize: 16,
+    color: 'black'
   },
   selectedTextStyle: {
     fontSize: 16,
+    color: 'black'
   },
  
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
+    color: 'black'
   },
   repeatBtn: {
     padding: 20,
@@ -556,13 +560,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#2196F3',
   },
   textStyle: {
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+    color: 'black'
   },
   settingIcon:{
     height: 10, 

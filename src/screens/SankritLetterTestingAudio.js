@@ -303,10 +303,12 @@ const SankritLetterTestingAudio= () => {
       borderColor:'green',
       borderWidth: 1,
       padding: 60,
+       color: 'black'
   },
   answerText:{
       fontSize: 36,
       borderColor:'green',
+       color: 'black'
        
   },
   playBtnText: {

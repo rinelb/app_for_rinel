@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
 mainText:{
   fontSize: 36,
   fontWeight: 'bold',
+  color: 'black',
 },
 stopBtn: {
   padding: 20,
